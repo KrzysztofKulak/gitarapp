@@ -1,0 +1,11 @@
+{
+  "name": "Gitara: postępy",
+  "short_name": "Gitara",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101317",
+  "theme_color": "#101317",
+  "lang": "pl",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
