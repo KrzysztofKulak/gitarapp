@@ -12,6 +12,9 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const pct = (x) => `${Math.round(x * 100)}%`;
 const hhmm = (d) => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 
+// Kolejność ważności akordów (po tagu): podstawowe i barre, power, septymowe, sus/add, mroczne, reszta.
+const CHORD_GROUPS = ['dur-moll', 'power', 'septymowe', 'sus-add', 'mroczne'];
+
 const S = {
   data: null,
   view: 'home',
@@ -157,7 +160,7 @@ function startSession(cat) {
       blockMin: st.blockMinutes, warmMin: st.warmupMinutes,
       timer: { phase: 'idle', remaining: 0, endAt: null, running: false, worked: 0 },
     };
-    S.sort = 'oldest';
+    S.sort = cat === 'chords' ? 'relevance' : 'oldest';
     S.showArchived = false;
   }
   S.cat = cat;
@@ -268,7 +271,13 @@ function paintTimer() {
 function sortedItems(cat, idx) {
   const q = (S.session?.query || '').toLowerCase();
   const list = S.data.items.filter((it) => it.category === cat && (S.showArchived ? true : !it.archived));
+  const pos = new Map(S.data.items.map((it, i) => [it.id, i]));
+  const rank = (it) => {
+    const r = CHORD_GROUPS.findIndex((g) => (it.tags || []).includes(g));
+    return r < 0 ? CHORD_GROUPS.length : r;
+  };
   const by = {
+    relevance: (a, b) => rank(a) - rank(b) || pos.get(a.id) - pos.get(b.id),
     oldest: (a, b) => {
       const la = statOf(idx, a.id).last, lb = statOf(idx, b.id).last;
       if (la === lb) return a.name.localeCompare(b.name, 'pl');
@@ -333,6 +342,7 @@ function renderSession() {
     <div class="toolbar">
       <input class="search field" style="grid-column:1/-1;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:46px" type="search" id="q" placeholder="Szukaj (nazwa lub tag)…" value="${esc(s.query)}">
       <label class="field">Sortowanie<select id="sort">
+        ${cat === 'chords' ? `<option value="relevance" ${S.sort === 'relevance' ? 'selected' : ''}>Ważność (podstawowe najpierw)</option>` : ''}
         <option value="oldest" ${S.sort === 'oldest' ? 'selected' : ''}>Najdawniej ćwiczone</option>
         <option value="alpha" ${S.sort === 'alpha' ? 'selected' : ''}>Alfabetycznie</option>
         <option value="count" ${S.sort === 'count' ? 'selected' : ''}>Po liczniku</option></select></label>

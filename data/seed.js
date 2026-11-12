@@ -22,18 +22,18 @@ export const SEED_CHORDS = [
   { name: 'D5 (Drop D)', tab: '000xxx', root: 'D', type: '5', tuning: 'dropD', tags: [p, 'drop-d'], note: 'strój DADGBE' },
   { name: 'F5 (Drop D)', tab: '333xxx', root: 'F', type: '5', tuning: 'dropD', tags: [p, 'drop-d'], note: 'strój DADGBE, jeden palec' },
 
-  // Durowe i molowe: otwarte i barre
+  // Durowe i molowe: najpierw otwarte, potem barre
   { name: 'C', tab: 'x32010', root: 'C', type: 'maj', tags: [d] },
   { name: 'D', tab: 'xx0232', root: 'D', type: 'maj', tags: [d] },
   { name: 'E', tab: '022100', root: 'E', type: 'maj', tags: [d] },
   { name: 'G', tab: '320003', root: 'G', type: 'maj', tags: [d] },
   { name: 'A', tab: 'x02220', root: 'A', type: 'maj', tags: [d] },
-  { name: 'F', tab: '133211', root: 'F', type: 'maj', tags: [d], note: 'barre' },
-  { name: 'B♭', tab: 'x13331', root: 'Bb', type: 'maj', tags: [d], note: 'barre' },
-  { name: 'B', tab: 'x24442', root: 'B', type: 'maj', tags: [d], note: 'barre' },
   { name: 'Am', tab: 'x02210', root: 'A', type: 'm', tags: [d] },
   { name: 'Dm', tab: 'xx0231', root: 'D', type: 'm', tags: [d] },
   { name: 'Em', tab: '022000', root: 'E', type: 'm', tags: [d] },
+  { name: 'F', tab: '133211', root: 'F', type: 'maj', tags: [d], note: 'barre' },
+  { name: 'B♭', tab: 'x13331', root: 'Bb', type: 'maj', tags: [d], note: 'barre' },
+  { name: 'B', tab: 'x24442', root: 'B', type: 'maj', tags: [d], note: 'barre' },
   { name: 'Bm', tab: 'x24432', root: 'B', type: 'm', tags: [d], note: 'barre' },
   { name: 'F#m', tab: '244222', root: 'F#', type: 'm', tags: [d], note: 'barre' },
   { name: 'Gm', tab: '355333', root: 'G', type: 'm', tags: [d], note: 'barre' },
